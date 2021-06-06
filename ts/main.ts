@@ -1,27 +1,31 @@
 /**
- * Create class that will hold State Information
+ * Create class that will hold State Information.
  */
 class State{
+    // fields 
     name:string;
     city:string;
     areaCode:number;
 }
 /**
- * Test writing data in web storage 
- * Then reading out data
+ * This will take the new instance of State object and convert it to a string
+ * using JSON method. Then it will be converted back to original format 
+ * to display on the web page. It will be locally stored in the 
+ * specfic web browser until manually deleted by user under History Settings
+ * to clear browser data.
  */
 window.onload = function(){
-    // storing test data in local storage.
+    /* check values in browser developer tool under the Application tab. */
+    // set: storing test data in local storage.
     localStorage.setItem("state", "Washington");
-    // read data from local storage.
+    // get: read data from local storage.
     let stateInfo = localStorage.getItem("state");
     // display on web page.
     let displayInfo = <HTMLInputElement>document.getElementById("info");
     displayInfo.innerText = stateInfo;
 
     /* create new instance for State to store on local storage. */
-
-    let state = new State();
+    let state = new State(); // constructor
     state.name = "Washington";
     state.city = "Tacoma";
     state.areaCode = 253; 
@@ -35,14 +39,20 @@ window.onload = function(){
     /* set State object: store State object in local storage. */
     localStorage.setItem(stateKey, stateString); // (key, value)
 
-    /* get State object: read State object from local storage. */
-    let stateResult = localStorage.getItem(stateKey);
+     /* get State object: read State object from local storage. */
+     let stateResult = localStorage.getItem(stateKey);
 
-    /* convert back to object. */
-    let currentState:State = JSON.parse(stateResult);
-    // display data in developer tool
+     /* convert back to object. */
+     let currentState:State = JSON.parse(stateResult);
+
+    /*
+      // converting can be done in one line of code for getting State object.
+      let currentState:State = JSON.parse(localStorage.getItem(stateKey)); 
+    */
+
+    // display data in developer tool under Console tab.
     console.log(currentState);
-    // display on web page.
+    // display data on web page.
     displayInfo.innerHTML = currentState.city + ", " +
                             currentState.name + " " +
                             "(" + currentState.areaCode + ")";
